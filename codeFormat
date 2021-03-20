@@ -1,0 +1,14 @@
+functions:
+1. myFunc()
+{
+code;
+}
+
+vars:
+1. int myVar = 0;;
+
+classes:
+1. MyClass* myClass = new MyClass();
+
+files:
+1. myfile.cpp
