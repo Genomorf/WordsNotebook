@@ -20,7 +20,7 @@ public:
     static int numberOfLinesInLayout;
     static QList<Line*> s_listLines;
 private:
-    //constants
+    //constantss
     const int FONT_SIZE = 20;
     const int TITLE_LAYOUT_SPACING = 30;
     enum class SORT_BTN_SIZE {height = 30, width = 30 };
