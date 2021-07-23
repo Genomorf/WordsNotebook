@@ -6,7 +6,7 @@ It can store information about english word, it's translation to russian, and ch
 
 ![1](/screenshots/eg1.png)
 
-![2](https://github.com/Genomorf/Words-Notebook/tree/master/screenshots/eg2.png)
+![2](screenshots/eg2.png)
 
 
 Implementation:
