@@ -5,13 +5,12 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include "mainwindow.h"
-#include "chain.h"
+//#include "chain.h"
 #include <QSizePolicy>
 #include "clickablelabel.h"
 
 Line::Line(int num, QWidget *parent) : QWidget(parent), number(num)
 {
-    qDebug() << "line.cpp Created line number " << number;
 
 }
 
@@ -128,7 +127,7 @@ QHBoxLayout* Line::createLine(QString firstStr, QString secondStr)
     chainTableLayout = new QVBoxLayout();
     chainTableLayout->setAlignment(Qt::AlignTop);
 
-        for (auto it = chainTable.begin(); it !=chainTable.end(); ++it){
+    for (auto it = chainTable.begin(); it !=chainTable.end(); ++it){
         QFrame* chainLine = new QFrame();
 
         chainLine->setFrameShape(QFrame::Box);
@@ -141,8 +140,6 @@ QHBoxLayout* Line::createLine(QString firstStr, QString secondStr)
         chainLineTxt->setFont(mainTextFont);
         chainLineTxt->setToolTip(it->second);
 
-//        QVBoxLayout* chainLineLayout = new QVBoxLayout();
-//        chainLineLayout->addWidget(chainLineTxt);
         QVBoxLayout* chainLineLayout = chainLineTxt->setToLayout();
         chainLine->setLayout(chainLineLayout);
 
@@ -157,7 +154,6 @@ QHBoxLayout* Line::createLine(QString firstStr, QString secondStr)
 
     QVBoxLayout* l = new QVBoxLayout();
     l->addWidget(chainFrame);
-
 
     horizLay = new QHBoxLayout();
     horizLay->addWidget(field1);
@@ -225,9 +221,6 @@ void Line::saveAddToChainTxtToSQL()
 
         ClickableLabel* chainLineTxt = new ClickableLabel(chainLineLocal, sql, secondField->text());
 
-        qDebug() << engFieldTxt;
-        qDebug() << ruFieldTxt;
-
         chainLineTxt->setText(engFieldTxt);
         chainLineTxt->setFont(mainTextFont);
         chainLineTxt->setToolTip(ruFieldTxt);
@@ -246,15 +239,10 @@ void Line::saveAddToChainTxtToSQL()
 
 void Line::deleteLine()
 {
-    qDebug() << "line.cpp Trying to delete line...";
-
     if (MainWindow::s_listLines.removeOne(this)){
         qDebug() << "line.cpp removed from s_listLines! \n"
                  << "s_numberOfLineObjects: " << MainWindow::s_listLines.size() << '\n'
                  << "s_listLines.size: " <<  MainWindow::s_listLines.size();
-
-    } else {
-        qDebug() << "cant remove from s_listLines";
     }
     sql->deleteWords(number, tbrowser);
     sql->deleteTable(secondField->text(), tbrowser);
@@ -273,19 +261,12 @@ void Line::saveLine()
     QString ff_text = firstField->text();
     QString sf_text = secondField->text();
 
-    qDebug() << "line.cpp First line: " << ff_text << " Second line: " << sf_text << "in line number" << number <<'\n';
-
     if (!ff_text.isEmpty() && !sf_text.isEmpty() && isTxtChanged){
         if(!MainWindow::s_listLines.contains(this)){
             MainWindow::s_listLines.push_back(this);
         }
-        qDebug() << "line.cpp Can save";
         sql->insertWords(ff_text, sf_text, number, tbrowser);
         sql->createTable(sf_text, tbrowser);
-        qDebug() << "line.cpp s_numberOfLineObjects: " << MainWindow::s_listLines.size();
-    }
-    else{
-        qDebug() << "line.cpp Can't save";
     }
     isTxtChanged = false;
 }

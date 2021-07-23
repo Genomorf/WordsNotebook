@@ -18,11 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     createCentralWidgetLayout();
 
     fillWordsLines();
-
-    qDebug() << "sqlword.cpp Line::s_numberOfLineObjects: " << MainWindow::s_listLines.size() << '\n'
-             << "MainWindow::s_listLines.size: " << MainWindow::s_listLines.size();
-
 }
+
 
 QList<Line*> MainWindow::s_listLines;
 int MainWindow::numberOfLinesInLayout = 1;
@@ -33,14 +30,10 @@ MainWindow::~MainWindow()
 }
 
 
-
 QFrame *MainWindow::createTitleFrame()
 {
-    qDebug() << "mainw.cpp Creating title...";
-
     QFrame* titleWidget = new QFrame();
     titleWidget->setFrameShape(QFrame::Box);
-
 
     sortFirstBtn = new QPushButton();
     sortFirstBtn->setMaximumSize(static_cast<int>(SORT_BTN_SIZE::height), static_cast<int>(SORT_BTN_SIZE::width));
@@ -73,11 +66,8 @@ QFrame *MainWindow::createTitleFrame()
 }
 
 
-
 QFrame *MainWindow::createAddButtonFrame()
 {
-    qDebug() << "mainw.cpp Creating add btn...";
-
     QFrame* addButtonFrame = new QFrame();
 
     QVBoxLayout* addButtonLayout = new QVBoxLayout();
@@ -85,12 +75,6 @@ QFrame *MainWindow::createAddButtonFrame()
     QPushButton* addButton = new QPushButton();
     addButton->setText("Add new word");
     addButton->setMinimumSize(static_cast<int>(ADD_BTN_SIZE::height),static_cast<int>(ADD_BTN_SIZE::width));
-
-//    QPalette pal = addButton->palette();
-//    pal.setBrush(QPalette::Window, QColor(255, 0, 0)); //red color
-//    pal.setBrush(QPalette::Button, QColor(128, 223, 255)); //blue color (hex representation)
-//    addButton->setPalette(pal);
-//    addButton->update();
     connect(addButton, &QPushButton::clicked, this, &MainWindow::addNewWordBtn);
 
     addButtonLayout->addWidget(addButton);
@@ -123,8 +107,6 @@ QScrollArea *MainWindow::createCentralWidgetScrollArea()
 
 void MainWindow::createCentralWidgetLayout()
 {
-    qDebug() << "mainw.cpp Creating central widget...";
-
     QFrame* titleWidget = createTitleFrame();
 
     QFrame* addButtonFrame = createAddButtonFrame();
@@ -142,9 +124,9 @@ void MainWindow::createCentralWidgetLayout()
     ui->centralwidget->setLayout(centralWidgetLayout);
 }
 
+
 void MainWindow::fillWordsLines()
 {
-    qDebug() << "mainw.cpp Fill lines_f. Connection to SQL...";
     sql = new SQL();
 
     // words pairs table: English -- Russian
@@ -171,6 +153,7 @@ void MainWindow::fillWordsLines()
     }
 }
 
+
 void MainWindow::pressArrowRu()
 {
     if (isArrowRuPressed){
@@ -182,8 +165,8 @@ void MainWindow::pressArrowRu()
         isArrowRuPressed = true;
         sortWidgetLines(Desc, Ru);
     }
-
 }
+
 
 void MainWindow::pressArrowEn()
 {
@@ -198,6 +181,7 @@ void MainWindow::pressArrowEn()
     }
 }
 
+
 void MainWindow::addNewWordBtn()
 {
     Line* line = new Line(numberOfLinesInLayout);
@@ -206,9 +190,9 @@ void MainWindow::addNewWordBtn()
     wordsLinesLayout->addLayout(line->createLine());
 }
 
+
 void MainWindow::sortWidgetLines(sortType type, lanType lan)
 {
-
     const int fieldStretch = lan == En ? 1 : 0;
 
     int pos = 0;

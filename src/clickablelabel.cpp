@@ -50,11 +50,11 @@ void ClickableLabel::createDeleteWindow()
 
 void ClickableLabel::connectToSql()
 {
+    qDebug() << " !";
     sql->deleteChainLine(tableName, this->text());
+    parentLine->hide();
     this->hide();
     delete chainLineLayout;
     delete this;
-    parentLine->hide();
-    delete parentLine;
 }
 
