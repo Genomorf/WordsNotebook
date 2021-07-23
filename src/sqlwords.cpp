@@ -11,12 +11,17 @@ SQL::SQL(QObject *parent) : QObject(parent)
     db = QSqlDatabase::addDatabase("QSQLITE");
 
     #ifdef QT_NO_DEBUG
-        QString dbSource("db.db");
-    #else
         QString dbSource("rl.db");
+    #else
+        QString dbSource("debug.db");
     #endif
 
     db.setDatabaseName(dbSource);
+    if(db.open()){
+        qDebug() << "sqlwords.cpp DB open";
+    } else {
+        qDebug() << "sqlwords.cpp Couldn't open db";
+    }
 }
 
 
